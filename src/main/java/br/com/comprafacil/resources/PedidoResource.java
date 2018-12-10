@@ -10,9 +10,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.comprafacil.model.Pedido;
+import br.com.comprafacil.queue.PedidoProducer;
 import br.com.comprafacil.services.PedidoService;
 
 @RestController
@@ -21,6 +23,9 @@ public class PedidoResource {
 	
 	@Autowired
 	private PedidoService pedidoService;
+	
+	@Autowired
+	PedidoProducer producer;
 
 	@RequestMapping(value= "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<?> find(@PathVariable Long id) {
@@ -31,6 +36,12 @@ public class PedidoResource {
 	@GetMapping("/pedidos")
 	public ResponseEntity<?> findAll() {
 		return ResponseEntity.ok().body(pedidoService.findAll());
+	}
+	
+	@GetMapping("/frete")
+	public String calculaFrete(@RequestParam("cep") String cep) {
+		producer.produceMsg(cep);
+		return "Calculando";
 	}
 	
 	@PostMapping("/criar")
