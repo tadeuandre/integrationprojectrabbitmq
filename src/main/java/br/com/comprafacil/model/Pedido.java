@@ -2,6 +2,7 @@ package br.com.comprafacil.model;
 
 import java.time.LocalDateTime;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,16 +18,16 @@ public class Pedido {
 
 	private LocalDateTime dataCompra;
 
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	private Destinatario destinatario;
 
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	private Loja loja;
 
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	private Entrega entrega;
-	
-	@OneToOne
+
+	@OneToOne(cascade = CascadeType.ALL)
 	private Produto produto;
 
 	public Long getId() {

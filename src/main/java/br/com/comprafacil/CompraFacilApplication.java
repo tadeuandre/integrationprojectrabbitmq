@@ -3,6 +3,7 @@ package br.com.comprafacil;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -13,9 +14,13 @@ import br.com.comprafacil.model.Loja;
 import br.com.comprafacil.model.Pedido;
 import br.com.comprafacil.model.Produto;
 import br.com.comprafacil.objectvalue.SituacaoEntrega;
+import br.com.comprafacil.repository.PedidoRepository;
 
 @SpringBootApplication
 public class CompraFacilApplication implements CommandLineRunner {
+	
+	@Autowired
+	private PedidoRepository pedidoRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(CompraFacilApplication.class, args);
@@ -44,5 +49,7 @@ public class CompraFacilApplication implements CommandLineRunner {
 		pedido.getProduto().setDescricao("MAC BOOK AIR 128 SSD");
 		pedido.getProduto().setQuantidadeEstoque(Long.valueOf(1));
 		pedido.getProduto().setValorAtual("R$ 4.299.90");
+		
+		pedidoRepository.save(pedido);
 	}
 }
