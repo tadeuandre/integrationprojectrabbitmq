@@ -17,7 +17,7 @@ public class PedidoProducer {
 	@Value("${jsa.rabbitmq.routingkey}")
 	private String routingKey;
 	
-	public void produceMsg(String msg){
-		amqpTemplate.convertAndSend(exchange, routingKey, msg);
+	public void produceMsg(String cep){
+		amqpTemplate.convertAndSend(exchange, routingKey, cep);
 	}
 }

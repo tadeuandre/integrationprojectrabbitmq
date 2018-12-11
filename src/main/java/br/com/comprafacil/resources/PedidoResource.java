@@ -38,8 +38,8 @@ public class PedidoResource {
 		return ResponseEntity.ok().body(pedidoService.findAll());
 	}
 	
-	@GetMapping("/frete")
-	public String calculaFrete(@RequestParam("cep") String cep) {
+	@GetMapping("/frete/{cep}")
+	public String calculaFrete(@PathVariable("cep") String cep) {
 		producer.produceMsg(cep);
 		return "Calculando";
 	}
